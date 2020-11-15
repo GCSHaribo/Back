@@ -9,3 +9,4 @@
 5. commit을 완료하면 develop branch에 PR을 날려주세요.
 6. 충돌하는 부분이 없는지만 확인하고 merge합니다.
 7. **master브랜치에 commit하거나 PR을 날리는 일은 없어야 합니다.**
+8. API명세서는 swagger를 사용하고 Wiki에 문서화합니다.
