@@ -14,8 +14,9 @@ import (
 
 type handlerInterface interface {
 	GetScore(c echo.Context)
+	GetMainPage(c echo.Context) error
 	ReceiveScore(c echo.Context)
-	Login(c echo.Context) error
+	Signin(c echo.Context) error
 	Signup(c echo.Context) error
 	updateUser(c echo.Context) error
 	SignOut(c echo.Context)
@@ -23,11 +24,17 @@ type handlerInterface interface {
 	GetNotice(c echo.Context)
 	GetComplaints(c echo.Context)
 }
+type Handler struct {
+	Handler handlerInterface
+}
 
-func GetMainPage(c echo.Context) (err error) {
+func NewHandler() *Handler {
+	return new(Handler)
+}
+func (h *Handler) GetMainPage(c echo.Context) (err error) {
 	return c.String(200, "main page")
 }
-func Signup(c echo.Context) (err error) {
+func (h *Handler) Signup(c echo.Context) (err error) {
 	// Bind
 	u := &model.User{ID: bson.NewObjectId().Hex()}
 	if err = c.Bind(u); err != nil {
@@ -47,7 +54,7 @@ func Signup(c echo.Context) (err error) {
 	return c.JSON(http.StatusCreated, u)
 }
 
-func Signin(c echo.Context) (err error) {
+func (h *Handler) Signin(c echo.Context) (err error) {
 	// Bind
 	u := new(model.User)
 	if err = c.Bind(u); err != nil {
