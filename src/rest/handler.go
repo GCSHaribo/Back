@@ -23,7 +23,13 @@ type handlerInterface interface {
 	GetNotice(c echo.Context)
 	GetComplaints(c echo.Context)
 }
+type Handler struct {
+	Handler handlerInterface
+}
 
+func NewHandler() *Handler {
+	return new(Handler)
+}
 func GetMainPage(c echo.Context) (err error) {
 	return c.String(200, "main page")
 }
